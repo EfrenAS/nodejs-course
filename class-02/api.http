@@ -1,0 +1,14 @@
+### Recuperar información del pokemon Ditto
+
+GET http://localhost:1234/pokemon/ditto
+
+### Crear un Pokemon
+
+POST http://localhost:1234/pokemon
+Content-Type: application/json
+
+{
+  "name": "Pikachu",
+  "type": "Electric",
+  "description": "Pikachu is a small, rodent-like Pokémon with yellow fur and"
+}
