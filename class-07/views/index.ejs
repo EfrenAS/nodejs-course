@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login or Register</title>
+  </head>
+  <body>
+    <div class="container">
+      <% if(typeof username !== 'undefined') {%>
+      <div class="form-container">
+        <h2>Hola <%= username %>!</h2>
+        <p>Estas en el Panel de Administración</p>
+        <button id="close-session">Cerrar Sesión</button>
+      </div>
+      <% } %> <% if(typeof username === 'undefined') {%>
+      <div class="form-container">
+        <form id="login-form">
+          <h2>Login</h2>
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" required />
+          <button type="submit">Login</button>
+          <span>&nbsp;</span>
+        </form>
+      </div>
+      <div class="form-container">
+        <form id="register-form">
+          <h2>Register</h2>
+          <label for="reg-username">Username</label>
+          <input
+            type="text"
+            id="reg-username"
+            name="reg-username"
+            placeholder="Username"
+            required
+          />
+          <label for="reg-password">Password</label>
+          <input
+            type="password"
+            name="reg-password"
+            id="reg-password"
+            required
+          />
+          <label for="confirm-password">Password</label>
+          <input
+            type="password"
+            name="confirm-password"
+            id="confirm-password"
+            required
+          />
+          <button type="submit">register</button>
+          <span>&nbsp;</span>
+        </form>
+      </div>
+      <% } %>
+    </div>
+    <script>
+      const $ = (el) => document.querySelector(el);
+
+      const loginForm = $('#login-form');
+      const loginSpan = $('#login-form span');
+
+      const registerForm = $('#register-form');
+      const registerSpan = $('#register-form span');
+
+      const logoutButton = $('#close-session');
+
+      loginForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = $('#username').value;
+        const password = $('#password').value;
+
+        fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        }).then((res) => {
+          if (res.ok) {
+            loginSpan.innerText = 'Logged in successfully!';
+            loginSpan.style.color = 'green';
+            setTimeout(() => {
+              window.location.href = 'dashboard';
+            }, 2000);
+          } else {
+            loginSpan.innerText = 'Error al iniciar la Sesión';
+            loginSpan.style.color = 'red';
+          }
+        });
+      });
+
+      registerForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = $('#reg-username').value;
+        const password = $('#reg-password').value;
+        const confirmPassword = $('#confirm-password').value;
+
+        if (password !== confirmPassword) {
+          alert('Passwords do not match');
+          return;
+        }
+
+        fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        }).then((res) => {
+          console.log(res);
+          if (res.ok) {
+            registerSpan.innerText = 'Registered successfully!';
+            registerSpan.style.color = 'green';
+            setTimeout(() => (window.location.href = '/dashboard'), 2000);
+          } else {
+            registerSpan.innerText = 'Error al registrarse';
+            registerSpan.style.color = 'red';
+          }
+        });
+      });
+
+      logoutButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        fetch('/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then((res) => {
+          console.log(res);
+          window.location.href = '/';
+        });
+      });
+    </script>
+  </body>
+</html>

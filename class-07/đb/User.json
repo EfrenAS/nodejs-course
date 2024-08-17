@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "c08e8136-50b4-4a92-a40b-44680225e40a",
+    "username": "chuchito",
+    "password": "$2b$10$hTutLjT8KxxLlXidXbq1hO.Vs5xGQu5CMwWmiDBG/MaqhpXnZRwqu"
+  },
+  {
+    "_id": "6936ee47-1ba0-4ebe-8754-dcd49264d537",
+    "username": "monchito",
+    "password": "$2b$10$TgDwZnWKnwKSKFFL90aWE.8n1JxL3sdgRjieugepehRefbIHYDCGi"
+  },
+  {
+    "_id": "d116d141-6987-4e7e-b2d6-ed3f57f4d3de",
+    "username": "peterpan",
+    "password": "$2b$10$l5XEvKalJH/ymV15PdcWkuD4f6lnZlLfKclKTvosx4dmMAj5hVSVq"
+  }
+]
